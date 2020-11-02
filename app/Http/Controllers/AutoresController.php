@@ -16,4 +16,14 @@ class AutoresController extends Controller
     		'autores'=>$autores
     	]);
     }
+    public function show (Request $request) {
+    	$idAutor = $request->id;
+    	//$autor = Autor::findOrFail($idAutor);
+    	//$autor = Autor::find($idAutor);
+    	$autor = Autor::where('ida',$idAutor)->first();
+
+    	return view ('autores.show', [
+    		'autor'=>$autor
+    	]);
+    }
 }

@@ -24,3 +24,11 @@ Route::get('/editoras', 'App\Http\Controllers\EditorasController@index')
 	->name('editoras.index');	
 Route::get('/generos', 'App\Http\Controllers\GenerosController@index')
 	->name('generos.index');	
+Route::get('/livros/{id}/show', 'App\Http\Controllers\LivrosController@show')
+	->name('livros.show');
+Route::get('/autores/{id}/show', 'App\Http\Controllers\AutoresController@show')
+	->name('autores.show');
+Route::get('/editoras/{id}/show', 'App\Http\Controllers\EditorasController@show')
+	->name('editoras.show');
+Route::get('/generos/{id}/show', 'App\Http\Controllers\GenerosController@show')
+	->name('generos.show');				
