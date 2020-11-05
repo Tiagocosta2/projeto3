@@ -10,4 +10,9 @@ class genero extends Model
     use HasFactory;
     protected $primaryKey="id_genero";
     protected $table = "generos";
+
+    public function livros() {
+    	//um genero tem varios livros
+    return $this->hasMany('App\Models\Livro', 'id_genero');
+    }
 }
