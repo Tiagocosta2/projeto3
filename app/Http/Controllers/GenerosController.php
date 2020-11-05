@@ -9,7 +9,7 @@ class GenerosController extends Controller
 {
     //
     public function index() {
-    	//$generos = Genero::all()->sortbydesc('ide');
+    	//$generos = Genero::all()->sortbydesc('id_genero');
     	$generos = Genero::paginate(4);
 
     	return view('generos.index', [
@@ -20,7 +20,7 @@ class GenerosController extends Controller
     	$idGenero = $request->id;
     	//$genero = Genero::findOrFail($idGenero);
     	//$genero = Genero::find($idGenero);
-    	$genero = Genero::where('idg',$idGenero)->first();
+    	$genero = Genero::where('id_genero',$idGenero)->first();
 
     	return view ('generos.show', [
     		'genero'=>$genero

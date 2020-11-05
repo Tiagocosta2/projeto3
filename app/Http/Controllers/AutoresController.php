@@ -9,7 +9,7 @@ class AutoresController extends Controller
 {
     //
     public function index() {
-    	//$autores = Autor::all()->sortbydesc('ida');
+    	//$autores = Autor::all()->sortbydesc('id_autor');
     	$autores = Autor::paginate(4);
 
     	return view('autores.index', [
@@ -20,7 +20,7 @@ class AutoresController extends Controller
     	$idAutor = $request->id;
     	//$autor = Autor::findOrFail($idAutor);
     	//$autor = Autor::find($idAutor);
-    	$autor = Autor::where('ida',$idAutor)->first();
+    	$autor = Autor::where('id_autor',$idAutor)->first();
 
     	return view ('autores.show', [
     		'autor'=>$autor

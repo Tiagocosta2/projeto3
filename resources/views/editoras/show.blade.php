@@ -1,3 +1,3 @@
-ID:{{$editora->ide}}<br>
+ID:{{$editora->id_editora}}<br>
 Nome:{{$editora->nome}}<br>
 Morada:{{$editora->morada}}

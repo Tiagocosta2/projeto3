@@ -10,7 +10,7 @@ class LivrosController extends Controller
     //
 
     public function index() {
-    	//$livros = Livro::all()->sortbydesc('idl');
+    	//$livros = Livro::all()->sortbydesc('id_livro');
     	$livros = Livro::paginate(4);
 
     	return view('livros.index', [
@@ -21,7 +21,7 @@ class LivrosController extends Controller
     	$idLivro = $request->id;
     	//$livro = Livro::findOrFail($idLivro);
     	//$livro = Livro::find($idLivro);
-    	$livro = Livro::where('idl',$idLivro)->first();
+    	$livro = Livro::where('id_livro',$idLivro)->first();
 
     	return view ('livros.show', [
     		'livro'=>$livro
