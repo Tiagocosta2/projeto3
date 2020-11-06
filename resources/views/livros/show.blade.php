@@ -9,10 +9,24 @@ Designação:	{{$livro->genero->designacao}}<br>
 	Sem genero definido	<br>
 @endif
 
-@if(isset($livro->autor->nome))
+{{--if(isset($livro->autor->nome))
 Nome: {{$livro->autor->nome}}
 @else
 	Sem autor defenido
-@endif
+endif--}}
+
+
+
+Nome:<br>
+@foreach($livro->autores as $autor)
+{{$autor->nome}} <br>
+@endforeach
+
+Edição:<br>
+@foreach($livro->editoras as $editora)
+{{$editora->nome}} <br>
+@endforeach
+
+
 
 

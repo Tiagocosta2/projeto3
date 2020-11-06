@@ -3,11 +3,16 @@ Nome:{{$autor->nome}}<br>
 Nacionalidade:{{$autor->nacionalidade}}<br>
 Data:{{$autor->data}}<br>
 
-@if(count($autor->livros))
+{{--if(count($autor->livros))
 Titulo:
 	@foreach($autor->livros as $livro)
 <h3>{{$livro->titulo}}</h3>
 	@endforeach
-@else
+else
 	Neste genero ainda não há livros! <br>
-@endif	
+endif--}}	
+
+Titulo:
+@foreach($autor->livros as $livro)
+{{$livro->titulo}} <br>
+@endforeach

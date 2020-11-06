@@ -1,3 +1,5 @@
+@extends('layout')
+@section('conteudo')
 <ul>
 @foreach($editoras as $editora)
 <li>
@@ -8,3 +10,5 @@
 @endforeach
 </ul>
 {{$editoras->render()}}
+
+@endsection
