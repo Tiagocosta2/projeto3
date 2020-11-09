@@ -9,6 +9,6 @@ Informação enviada através de form
 	{{$nome}}<br>
 @foreach($autor as $at)
 	{{$at->nome}}<br>
-@endforeach	
+@endforeach
 
 @endsection
