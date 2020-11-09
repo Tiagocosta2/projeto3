@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Autor;
 
 class PortalController extends Controller
 {
@@ -12,13 +13,13 @@ class PortalController extends Controller
     }
     public function processarForm (Request $request) {
         $nome = $request->nome;
-        $morada = $request->morada;
-        $geneross = $request ->geneross;
+        $autor = Autor::where('nome', 'like', '%'. $nome . '%')->paginate(4);
+
 
         return view('form-enviado',[   
             'nome' =>$nome,
-            'morada'=>$morada,
-            'geneross'=>$geneross
+            'autor'=>$autor
+
         ]);
     }
 }

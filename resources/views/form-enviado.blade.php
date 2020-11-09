@@ -7,6 +7,8 @@ Informação enviada através de form
 @endsection
 @section('conteudo')
 	{{$nome}}<br>
-	{{$morada}}<br>
-	{{$geneross}}
+@foreach($autor as $at)
+	{{$at->nome}}<br>
+@endforeach	
+
 @endsection
