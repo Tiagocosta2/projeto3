@@ -14,7 +14,6 @@ class PortalController extends Controller
     public function processarForm (Request $request) {
         $nome = $request->nome;
         $autor = Autor::where('nome', 'like', '%'. $nome . '%')->paginate(4);
-        
 
 
         return view('form-enviado',[   
