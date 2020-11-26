@@ -16,6 +16,19 @@ class Livro extends Model
     //mas vai ajudar-nos em situações futuras
     protected $table = "livros";
 
+    protected $fillable = [
+        'titulo',
+        'idioma',
+        'total_paginas',
+        'data_edicao',
+        'isbn',
+        'observacoes',
+        'imagem_capa',
+        'id_genero',
+        'id_autor',
+        'sinopse'
+    ];
+
     public function genero() {
     	//com o belong 1 livro tem um genero
     	return $this->belongsTo('App\Models\Genero', 'id_genero');
