@@ -11,6 +11,10 @@ class genero extends Model
     protected $primaryKey="id_genero";
     protected $table = "generos";
 
+    protected $fillable = [
+        'designacao',
+        'observacoes',
+    ];
     public function livros() {
     	//um genero tem varios livros
     return $this->hasMany('App\Models\Livro', 'id_genero');

@@ -29,7 +29,6 @@ class LivrosController extends Controller
     }
     public function create() {
         return view('livros.create');
-        $livro = Livro::create($novoLivro);
     }
     public function store(Request $request) {
         //$novoLivro = $request->all();
@@ -45,7 +44,12 @@ class LivrosController extends Controller
             'id_genero' => ['numeric', 'nullable'],
             'id_autor'=>['numeric', 'nullable'],
             'sinopse'=>['nullable', 'min:3', 'max:255'],
+
         ]);
+        $livro = Livro::create($novoLivro);
+        return redirect()->route('livros.show', [
+                'id'=>$livro->id_livro
+            ]);
     }
 
 }
