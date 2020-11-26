@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form action="{{route('livros.store')}}" method="post">
 @csrf
 Titulo: <input type="text" name="titulo"><br>
 idioma: <input type="text" name="idioma"><br>

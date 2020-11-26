@@ -36,3 +36,7 @@ Route::get('/formulario', 'App\Http\Controllers\PortalController@mostrarForm')
 			->name('mostrar.form');	
 Route::post('/form-enviado', 'App\Http\Controllers\PortalController@processarForm')
 			->name('processar.form');
+Route::get('/livros/create', 'App\Http\Controllers\LivrosController@create')
+			->name('livros.create');
+Route::post('/livros', 'App\Http\Controllers\LivrosController@store')
+		->name('livros.store');			
