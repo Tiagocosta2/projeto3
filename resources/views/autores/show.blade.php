@@ -16,3 +16,5 @@ Titulo:
 @foreach($autor->livros as $livro)
 {{$livro->titulo}} <br>
 @endforeach
+<a href="{{route('autores.create')}}">Adicionar autores</a><br>
+<a href="{{route('autores.edit', ['id'=>$autor->id_autor])}}">Editar</a>

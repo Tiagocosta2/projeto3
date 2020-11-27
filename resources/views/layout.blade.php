@@ -20,6 +20,8 @@
       <a class="nav-item nav-link" href="{{route('editoras.index')}}">Editoras</a>
       <a class="nav-item nav-link" href="{{route('autores.index')}}">Autores</a>
       <a class="nav-item nav-link" href="{{route('mostrar.form')}}">Formulario</a>
+      
+
     </div>
   </div>
 </nav>

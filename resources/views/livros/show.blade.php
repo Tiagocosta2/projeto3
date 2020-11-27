@@ -26,7 +26,8 @@ Edição:<br>
 @foreach($livro->editoras as $editora)
 {{$editora->nome}} <br>
 @endforeach
-
+<a href="{{route('livros.create')}}">Adicionar livros</a><br>
+<a href="{{route('livros.edit', ['id'=>$livro->id_livro])}}">Editar</a>
 
 
 

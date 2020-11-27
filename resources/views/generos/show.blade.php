@@ -7,5 +7,7 @@ Observações:{{$genero->observacoes}} <br>
 	<h3>{{$livro->titulo}}</h3>
 	@endforeach
 @else
-	Neste genero ainda não há livros!
+	Neste genero ainda não há livros! <br>
 @endif	
+<a  href="{{route('generos.create')}}">Adicionar generos</a><br>
+<a href="{{route('generos.edit', ['id'=>$genero->id_genero])}}">Editar</a>

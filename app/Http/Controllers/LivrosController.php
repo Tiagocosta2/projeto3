@@ -44,12 +44,38 @@ class LivrosController extends Controller
             'id_genero' => ['numeric', 'nullable'],
             'id_autor'=>['numeric', 'nullable'],
             'sinopse'=>['nullable', 'min:3', 'max:255'],
-
         ]);
         $livro = Livro::create($novoLivro);
         return redirect()->route('livros.show', [
                 'id'=>$livro->id_livro
             ]);
+    }
+    public function edit(Request $request) {
+        $idLivro=$request->id;
+        $idLivro = Livro::where('id_livro', $idLivro)->first();
+        return view('livros.edit', [
+            'livro'=>$idLivro
+        ]);
+    }
+    public function update (Request $request) {
+        $idLivro=$request->id;
+        $livro = Livro::findOrFail($idLivro);
+            $atualizarLivro = $request->validate ([
+            'titulo'=>['required', 'min:3', 'max:100'],
+            'idioma'=>['nullable', 'min:3', 'max:20'],
+            'total_paginas'=>['nullable', 'numeric', 'min:1'],
+            'data_edicao'=>['nullable', 'date'],
+            'isbn'=>['required', 'min:13', 'max:13'],
+            'observacoes'=>['nullable', 'min:3', 'max:255'],
+            'imagem_capa'=> ['nullable'],
+            'id_genero' => ['numeric', 'nullable'],
+            'id_autor'=>['numeric', 'nullable'],
+            'sinopse'=>['nullable', 'min:3', 'max:255'],
+            ]); 
+        $livro->update($atualizarLivro);   
+        return redirect()->route('livros.show', [
+            'id'=>$livro->id_livro
+        ]); 
     }
 
 }

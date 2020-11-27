@@ -37,8 +37,27 @@ class EditorasController extends Controller
         ]);
         $editora =Editora::create($novoEditora);
         return redirect()->route('editoras.show', [
-                'id'=>$editora->id_editora
-            ]);
-
+            'id'=>$editora->id_editora
+        ]);
+    }
+    public function edit(Request $request) {
+        $idEditora=$request->id;
+        $idEditora = Editora::where('id_editora', $idEditora)->first();
+        return view('editoras.edit', [
+            'editora'=>$idEditora
+        ]);
+    }
+    public function update (Request $request) {
+        $idEditora=$request->id;
+        $editora = Editora::findOrFail($idEditora);
+            $atualizarEditora = $request->validate ([
+            'nome'=>['required', 'min:1', 'max:50'],
+            'morada'=> ['nullable','min:3', 'max:50'],
+            'observacoes'=> ['nullable','min:3', 'max:200'],   
+            ]); 
+        $editora->update($atualizarEditora);   
+        return redirect()->route('editoras.show', [
+            'id'=>$editora->id_editora
+        ]); 
     }
 }

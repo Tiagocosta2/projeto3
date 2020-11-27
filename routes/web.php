@@ -51,4 +51,21 @@ Route::post('/generos', 'App\Http\Controllers\GenerosController@store')
 Route::get('/editoras/create', 'App\Http\Controllers\EditorasController@create')
 		->name('editoras.create');
 Route::post('/editoras', 'App\Http\Controllers\EditorasController@store')
-		->name('editoras.store');																		
+		->name('editoras.store');
+
+Route::get('/livros/{id}/edit', 'App\Http\Controllers\LivrosController@edit')
+		->name('livros.edit');	
+Route::patch('/livros/{id}', 'App\Http\Controllers\LivrosController@update')
+		->name('livros.update');	
+Route::get('/autores/{id}/edit', 'App\Http\Controllers\AutoresController@edit')
+		->name('autores.edit');
+Route::patch('/autores/{id}', 'App\Http\Controllers\AutoresController@update')
+		->name('autores.update');
+Route::get('/generos/{id}/edit', 'App\Http\Controllers\GenerosController@edit')
+		->name('generos.edit');
+Route::patch('/generos/{id}', 'App\Http\Controllers\GenerosController@update')
+		->name('generos.update');
+Route::get('/editoras/{id}/edit', 'App\Http\Controllers\EditorasController@edit')
+		->name('editoras.edit');
+Route::patch('/editoras/{id}', 'App\Http\Controllers\EditorasController@update')
+		->name('editoras.update');																												
