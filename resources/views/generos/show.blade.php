@@ -1,3 +1,5 @@
+@extends('layout')
+@section('conteudo')
 ID:{{$genero->id_genero}}<br>
 Nome:{{$genero->designacao}}<br>
 Observações:{{$genero->observacoes}} <br>
@@ -9,5 +11,6 @@ Observações:{{$genero->observacoes}} <br>
 @else
 	Neste genero ainda não há livros! <br>
 @endif	
-<a  href="{{route('generos.create')}}">Adicionar generos</a><br>
-<a href="{{route('generos.edit', ['id'=>$genero->id_genero])}}">Editar</a>
+<button type="button" class="btn btn-outline-primary"><a  href="{{route('generos.create')}}">Adicionar generos</a></button><br>
+<button type="button" class="btn btn-outline-primary"><a href="{{route('generos.edit', ['id'=>$genero->id_genero])}}">Editar</a></button>
+@endsection

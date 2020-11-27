@@ -1,3 +1,5 @@
+@extends('layout')
+@section('conteudo')
 ID:{{$autor->id_autor}}<br>
 Nome:{{$autor->nome}}<br>
 Nacionalidade:{{$autor->nacionalidade}}<br>
@@ -16,5 +18,7 @@ Titulo:
 @foreach($autor->livros as $livro)
 {{$livro->titulo}} <br>
 @endforeach
-<a href="{{route('autores.create')}}">Adicionar autores</a><br>
-<a href="{{route('autores.edit', ['id'=>$autor->id_autor])}}">Editar</a>
+<br>
+<button type="button" class="btn btn-outline-primary"><a href="{{route('autores.create')}}">Adicionar autores</a> </button><br>
+<button type="button" class="btn btn-outline-primary"><a href="{{route('autores.edit', ['id'=>$autor->id_autor])}}">Editar</a></button><br>
+@endsection
