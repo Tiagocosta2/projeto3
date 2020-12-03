@@ -36,11 +36,16 @@ Imagem capa: <input type="text" name="imagem_capa" value="{{old('imagem_capa')}}
 Deverá indicar uma imagem de capa correta<br>
 @endif
 
-Género: <input type="text" name="id_genero" value="{{old('id_genero')}}"><br>
-@if ( $errors->has('id_genero') )
-Deverá indicar um Id genero correto<br>
-@endif
-
+Género: 
+<select name="id_genero">
+	@foreach($generos as $genero)
+		<option value="{{$genero->id_genero}}">{{$genero->designacao}}</option>
+	@endforeach
+	@if ( $errors->has('id_genero') )
+		Deverá indicar um Id genero correto<br>
+	@endif
+</select>
+<br>
 Autor: <input type="text" name="id_autor" value="{{old('id_autor')}}"><br>
 @if ( $errors->has('id_autor') )
 Deverá indicar um Id autor correto<br>

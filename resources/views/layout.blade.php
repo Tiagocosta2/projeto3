@@ -5,10 +5,12 @@
     <title>@yield('titulo-pagina')</title>
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/slick.css')}}">
 
     <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/all.min.js')}}"></script>
+    <script src="{{asset('js/slick.js')}}"></script>
 </head>
 <body>
       @if(session()->has('mensagem'))

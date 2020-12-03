@@ -74,7 +74,18 @@ Route::get('/livros/{id}/delete', 'App\Http\Controllers\LivrosController@delete'
 		->name('livros.delete');
 Route::delete('/livros', 'App\Http\Controllers\LivrosController@destroy')
 		->name('livros.destroy');
+
 Route::get('/generos/{id}/delete', 'App\Http\Controllers\GenerosController@delete')
 		->name('generos.delete');
 Route::delete('/generos', 'App\Http\Controllers\GenerosController@destroy')
-		->name('generos.destroy');		
+		->name('generos.destroy');	
+
+Route::get('/editoras/{id}/delete', 'App\Http\Controllers\EditorasController@delete')
+		->name('editoras.delete');
+Route::delete('/editoras', 'App\Http\Controllers\EditorasController@destroy')
+		->name('editoras.destroy');		
+
+Route::get('/autores/{id}/delete', 'App\Http\Controllers\AutoresController@delete')
+		->name('autores.delete');
+Route::delete('/autores', 'App\Http\Controllers\AutoresController@destroy')
+		->name('autores.destroy');		
