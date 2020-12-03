@@ -1,4 +1,4 @@
-<?php
+/<?php
 
 use Illuminate\Support\Facades\Route;
 
@@ -68,4 +68,13 @@ Route::patch('/generos/{id}', 'App\Http\Controllers\GenerosController@update')
 Route::get('/editoras/{id}/edit', 'App\Http\Controllers\EditorasController@edit')
 		->name('editoras.edit');
 Route::patch('/editoras/{id}', 'App\Http\Controllers\EditorasController@update')
-		->name('editoras.update');																												
+		->name('editoras.update');
+
+Route::get('/livros/{id}/delete', 'App\Http\Controllers\LivrosController@delete')
+		->name('livros.delete');
+Route::delete('/livros', 'App\Http\Controllers\LivrosController@destroy')
+		->name('livros.destroy');
+Route::get('/generos/{id}/delete', 'App\Http\Controllers\GenerosController@delete')
+		->name('generos.delete');
+Route::delete('/generos', 'App\Http\Controllers\GenerosController@destroy')
+		->name('generos.destroy');		
