@@ -49,7 +49,17 @@ Deverá indicar um Id genero correto<br>
 @endif
 </select>
 
-Autor: <input type="text" name="id_autor" value="{{$livro->id_autor}}"><br>
+Autor:
+<select name="id_autor[]" multiple="multiple">
+ 	@foreach($autores as $autor )
+ 		<option 
+ 		value="{{$autor->id_autor}}"
+ 		@if(in_array($autor->id_autor, $autoresLivro)) selected @endif
+ 		>
+ 		{{$autor->nome}}
+ 	</option>
+ 	@endforeach
+ </select>
 @if ( $errors->has('id_autor') )
 Deverá indicar um Id autor correto<br>
 @endif
@@ -58,6 +68,19 @@ Sinpose: <textarea name="sinopse">{{$livro->sinopse}}</textarea><br>
 @if ( $errors->has('sinopse') )
 Deverá indicar umaa Sinopse correta<br>
 @endif
+<br>
+<br>
+
+Editora:
+<select name="id_editora[]" multiple="multiple">
+	@foreach($editoras as $editora)
+	<option value="{{$editora->id_editora}}" @if(in_array($editora->id_editora, $editorasLivro))selected @endif>
+		{{$editora->nome}}
+	</option>
+	@endforeach
+</select>
+
+
 <input type="submit" value="enviar">
 
 </form>

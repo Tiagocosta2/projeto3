@@ -45,8 +45,15 @@ Género:
 		Deverá indicar um Id genero correto<br>
 	@endif
 </select>
+
 <br>
-Autor: <input type="text" name="id_autor" value="{{old('id_autor')}}"><br>
+
+Autor(es):
+ <select name="id_autor[]" multiple="multiple">
+ 	@foreach($autores as $autor )
+ 		<option value="{{$autor->id_autor}}">{{$autor->nome}}</option>
+ 	@endforeach
+ </select>
 @if ( $errors->has('id_autor') )
 Deverá indicar um Id autor correto<br>
 @endif
@@ -55,6 +62,17 @@ Sinpose: <textarea name="sinopse"></textarea><br>
 @if ( $errors->has('sinopse') )
 Deverá indicar umaa Sinopse correta<br>
 @endif
+<br>
+<br>
+
+Editora:
+<select name="id_editora[]" multiple="multiple">
+	@foreach($editoras as $editora)
+		<option value="{{$editora->id_editora}}">
+			{{$editora->nome}}
+		</option>
+	@endforeach
+</select>
 <input type="submit" value="enviar">
 
 </form>
