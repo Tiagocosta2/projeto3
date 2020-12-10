@@ -19,7 +19,9 @@ Titulo:
 {{$livro->titulo}} <br>
 @endforeach
 <br>
+@if(auth()->check())
 <button type="button" class="btn btn-outline-primary"><a href="{{route('autores.create')}}">Adicionar autores</a> </button><br>
 <button type="button" class="btn btn-outline-primary"><a href="{{route('autores.edit', ['id'=>$autor->id_autor])}}">Editar</a></button><br>
 <button type="button" class="btn btn-outline-primary"><a href="{{route('autores.delete', ['id'=>$autor->id_autor])}}">Eliminar</a></button>
+@endif
 @endsection

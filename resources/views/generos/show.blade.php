@@ -11,8 +11,10 @@ Observações:{{$genero->observacoes}} <br>
 @else
 	Neste genero ainda não há livros! <br>
 @endif	
+@if(auth()->check())
 <button type="button" class="btn btn-outline-primary"><a  href="{{route('generos.create')}}">Adicionar generos</a></button><br>
 <button type="button" class="btn btn-outline-primary"><a href="{{route('generos.edit', ['id'=>$genero->id_genero])}}">Editar</a></button>
 
 <button type="button" class="btn btn-outline-primary"><a href="{{route('generos.delete', ['id'=>$genero->id_genero])}}">Eliminar</a></button>
+@endif
 @endsection

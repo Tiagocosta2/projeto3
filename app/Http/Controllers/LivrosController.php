@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\Models\Livro;
 use App\Models\Genero;
 use App\Models\Autor;
@@ -42,9 +43,11 @@ class LivrosController extends Controller
 
     }
     public function store(Request $request) {
+        
         //$novoLivro = $request->all();
         //dd($novoLivro);
         $novoLivro = $request->validate ([
+            
             'titulo'=>['required', 'min:3', 'max:100'],
             'idioma'=>['nullable', 'min:3', 'max:20'],
             'total_paginas'=>['nullable', 'numeric', 'min:1'],
@@ -55,14 +58,19 @@ class LivrosController extends Controller
             'id_genero' => ['numeric', 'nullable'],
             'sinopse'=>['nullable', 'min:3', 'max:255'],
         ]);
+        if(Auth::check()){
+            $userAtual=Auth::user()->id;
+            $novoLivro['id_user']=$userAtual;
+        }
         $autores=$request->id_autor;
-
+        $editoras=$request->id_editora;
         $livro = Livro::create($novoLivro);
         $livro->autores()->attach($autores);
         $livro->editoras()->attach($editoras);
         return redirect()->route('livros.show', [
                 'id'=>$livro->id_livro
-            ]);
+         ]);
+
     }
     public function edit(Request $request) {
         $idLivro=$request->id;
