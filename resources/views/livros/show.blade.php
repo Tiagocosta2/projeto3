@@ -27,10 +27,21 @@ Edição:<br>
 {{$editora->nome}} <br>
 @endforeach
 
+@if(!is_null($livro->users))
+User: {{$livro->users->name}}
+@else
+	Sem user defenido 
+@endif
+<br>
+
 @if(auth()->check())
 <button type="button" class="btn btn-outline-primary"><a href="{{route('livros.create')}}">Adicionar livros</a></button><br>
+@if(Auth::user()->id==$livro->id_user)
 <button type="button" class="btn btn-outline-primary"><a href="{{route('livros.edit', ['id'=>$livro->id_livro])}}">Editar</a></button>
 <button type="button" class="btn btn-outline-primary"><a href="{{route('livros.delete', ['id'=>$livro->id_livro])}}">Eliminar</a></button>
+@else
+Não tem permissoes para editar e eleminar
+@endif
 @endif
 @endsection
 

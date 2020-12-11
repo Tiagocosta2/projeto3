@@ -25,7 +25,8 @@ class LivrosController extends Controller
     	$idLivro = $request->id;
     	//$livro = Livro::findOrFail($idLivro);
     	//$livro = Livro::find($idLivro);
-    	$livro = Livro::where('id_livro',$idLivro)->with(['genero','autores','editoras'])->first();
+    	$livro = Livro::where('id_livro',$idLivro)->with(['genero','autores','editoras','users'])->first();
+
 
     	return view ('livros.show', [
     		'livro'=>$livro
@@ -88,15 +89,32 @@ class LivrosController extends Controller
         foreach ($idLivro->editoras as $editora) {
             $editorasLivro[]=$editora->id_editora;
         }
-
-        return view('livros.edit', [
+        
+        if (isset($idLivro->id_user)) {
+            if(Auth::user()->id==$idLivro->id_user){
+                 return view('livros.edit', [
             'livro'=>$idLivro,
-            'generos'=>$generos,
-            'autores'=>$autores,
-            'editoras'=>$editoras,
-            'autoresLivro'=>$autoresLivro,
-            'editorasLivro'=>$editorasLivro
-        ]);
+                 'generos'=>$generos,
+                 'autores'=>$autores,
+                 'editoras'=>$editoras,
+                 'autoresLivro'=>$autoresLivro,
+                'editorasLivro'=>$editorasLivro
+             ]);
+            }
+            else{
+            return redirect()->route('livros.index')->with('mensagem', 'Erro');
+            }
+        } 
+        // return view('livros.edit', [
+        //     'livro'=>$idLivro,
+        //     'generos'=>$generos,
+        //     'autores'=>$autores,
+        //     'editoras'=>$editoras,
+        //     'autoresLivro'=>$autoresLivro,
+        //     'editorasLivro'=>$editorasLivro
+        // ]);
+       
+        
     }
     public function update (Request $request) {
         $idLivro=$request->id;
