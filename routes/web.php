@@ -106,3 +106,6 @@ Route::delete('/autores', 'App\Http\Controllers\AutoresController@destroy')
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Likes
+Route::get('/livro/{id}/sendlikes','App\Http\Controllers\LivrosController@sendlikes')->name('livros.like');

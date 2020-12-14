@@ -56,5 +56,11 @@ class Livro extends Model
     public function users() {
         return $this->belongsTo('App\Models\User', 'id_user');
     }
+    public function likes(){
+        return $this->hasMany(
+            'App\Models\Like',
+            'id_livro',
+        );
+    }
 
 }

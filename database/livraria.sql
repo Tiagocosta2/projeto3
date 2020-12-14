@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10-Dez-2020 às 16:09
+-- Tempo de geração: 14-Dez-2020 às 17:50
 -- Versão do servidor: 10.4.14-MariaDB
 -- versão do PHP: 7.3.23
 
@@ -81,8 +81,10 @@ CREATE TABLE `autores_livros` (
 
 INSERT INTO `autores_livros` (`id_al`, `id_autor`, `id_livro`, `updated_at`, `created_at`) VALUES
 (1, 1, 1, NULL, NULL),
-(3, 3, 24, '2020-12-04 15:15:43', '2020-12-04 15:15:43'),
-(4, 4, 24, '2020-12-04 15:16:32', '2020-12-04 15:16:32');
+(5, 3, 2, '2020-12-10 15:16:10', '2020-12-10 15:16:10'),
+(6, 3, 25, '2020-12-10 15:21:10', '2020-12-10 15:21:10'),
+(9, 2, 28, '2020-12-11 15:17:38', '2020-12-11 15:17:38'),
+(10, 2, 29, '2020-12-11 15:41:52', '2020-12-11 15:41:52');
 
 -- --------------------------------------------------------
 
@@ -106,7 +108,9 @@ CREATE TABLE `edicoes` (
 
 INSERT INTO `edicoes` (`id_livro`, `id_editora`, `data`, `observacoes`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1, NULL, NULL, NULL, NULL, NULL),
-(2, 2, NULL, NULL, '2020-12-04 16:54:01', '2020-12-04 16:54:01', NULL);
+(2, 2, NULL, NULL, '2020-12-04 16:54:01', '2020-12-04 16:54:01', NULL),
+(28, 2, NULL, NULL, '2020-12-11 15:17:38', '2020-12-11 15:17:38', NULL),
+(29, 3, NULL, NULL, '2020-12-11 15:41:52', '2020-12-11 15:41:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -167,6 +171,22 @@ INSERT INTO `generos` (`id_genero`, `designacao`, `observacoes`, `created_at`, `
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `likes`
+--
+
+CREATE TABLE `likes` (
+  `id_like` int(11) NOT NULL,
+  `id_livro` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `likes` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `livros`
 --
 
@@ -209,7 +229,9 @@ INSERT INTO `livros` (`id_livro`, `titulo`, `idioma`, `total_paginas`, `data_edi
 (15, 'Contribuições para a discussão de um modelo de Governo Eletrónico Local para Angola', 'Português', NULL, NULL, '9789899933200', NULL, NULL, 1, 13, NULL, NULL, NULL, NULL, 0),
 (16, 'sistema', 'portugues', NULL, NULL, '1234567781011', NULL, NULL, NULL, NULL, NULL, '2020-11-26 13:52:20', '2020-11-26 13:52:20', NULL, 0),
 (17, 'sistema', 'redes', 1, NULL, '1234567781011', NULL, NULL, NULL, NULL, NULL, '2020-11-26 14:15:09', '2020-11-26 14:15:09', NULL, 0),
-(24, 'Alerta', 'ingles', 11, NULL, '1234567781011', NULL, NULL, 2, NULL, NULL, '2020-12-04 15:08:55', '2020-12-04 15:08:55', NULL, 0);
+(25, 'sistema teste', 'portugues', NULL, NULL, '1234567781011', NULL, NULL, 1, NULL, NULL, '2020-12-10 15:21:10', '2020-12-10 15:21:10', NULL, 1),
+(28, 'sistema teste2', 'portugues', NULL, NULL, '1234567781011', NULL, NULL, 3, NULL, NULL, '2020-12-11 15:17:38', '2020-12-11 15:17:38', NULL, 2),
+(29, 'sistema teste3', 'portugues', NULL, NULL, '1234567781011', NULL, NULL, 1, NULL, NULL, '2020-12-11 15:41:52', '2020-12-11 15:41:52', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -233,7 +255,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'tiago', 'tiagofilipegoncalves.tc@gmail.com', NULL, '$2y$10$8lVaq6k/tuUiKdnuj1G4DeiZNKp0RqRzahc/j3rWUg1cio6sd4Mdu', NULL, '2020-12-10 13:56:50', '2020-12-10 13:56:50');
+(1, 'tiago', 'tiagofilipegoncalves.tc@gmail.com', NULL, '$2y$10$8lVaq6k/tuUiKdnuj1G4DeiZNKp0RqRzahc/j3rWUg1cio6sd4Mdu', NULL, '2020-12-10 13:56:50', '2020-12-10 13:56:50'),
+(2, 'tiago2', 'tiagofilipegoncalves@hotmail.com', NULL, '$2y$10$NdX9SPQo89ZRQpoKOPQkR.nG7Y1kPYj7uev5Lo7DLoEeQ15wvwNAG', NULL, '2020-12-11 15:32:42', '2020-12-11 15:32:42');
 
 --
 -- Índices para tabelas despejadas
@@ -270,6 +293,12 @@ ALTER TABLE `generos`
   ADD PRIMARY KEY (`id_genero`);
 
 --
+-- Índices para tabela `likes`
+--
+ALTER TABLE `likes`
+  ADD PRIMARY KEY (`id_like`);
+
+--
 -- Índices para tabela `livros`
 --
 ALTER TABLE `livros`
@@ -295,7 +324,7 @@ ALTER TABLE `autores`
 -- AUTO_INCREMENT de tabela `autores_livros`
 --
 ALTER TABLE `autores_livros`
-  MODIFY `id_al` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_al` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `editoras`
@@ -310,16 +339,22 @@ ALTER TABLE `generos`
   MODIFY `id_genero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de tabela `likes`
+--
+ALTER TABLE `likes`
+  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `livros`
 --
 ALTER TABLE `livros`
-  MODIFY `id_livro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_livro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

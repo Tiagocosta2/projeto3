@@ -8,6 +8,7 @@ use App\Models\Livro;
 use App\Models\Genero;
 use App\Models\Autor;
 use App\Models\Editora;
+use App\Models\Like;
 
 class LivrosController extends Controller
 {
@@ -25,11 +26,15 @@ class LivrosController extends Controller
     	$idLivro = $request->id;
     	//$livro = Livro::findOrFail($idLivro);
     	//$livro = Livro::find($idLivro);
+
+        $likes = Like::where('id_livro', $idLivro)->count();
+
     	$livro = Livro::where('id_livro',$idLivro)->with(['genero','autores','editoras','users'])->first();
 
 
     	return view ('livros.show', [
-    		'livro'=>$livro
+    		'livro'=>$livro,
+            'likes'=>$likes
     	]);
     }
     public function create() {
@@ -161,6 +166,21 @@ class LivrosController extends Controller
         $livro->delete();
         return redirect()->route('livros.index')
         ->with('mensagem', 'Livro Eliminado');
+    }
+    public function sendlikes(Request $request) {
+        $idLivro=$request->id;
+        $novoLike['id_livro']=$idLivro;
+        $novoLike['id_user']= Auth::user()->id;  
+        $likes=Like::where('id_user', Auth::user()->id)->where('id_livro', $idLivro)->first();
+        
+        if(!is_null($likes)) {
+
+        }
+        else{
+            Like::create($novoLike);
+        }  
+        
+        return redirect()->route('livros.show', ['id'=>$idLivro]);
     }
 
 }

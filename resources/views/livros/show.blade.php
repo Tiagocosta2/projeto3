@@ -33,7 +33,8 @@ User: {{$livro->users->name}}
 	Sem user defenido 
 @endif
 <br>
-
+<a href="{{route('livros.like', ['id'=>$livro->id_livro])}}" class="btn btn-outline-primary">Likes</a>{{$likes}}
+<br>
 @if(auth()->check())
 <button type="button" class="btn btn-outline-primary"><a href="{{route('livros.create')}}">Adicionar livros</a></button><br>
 @if(Auth::user()->id==$livro->id_user)
@@ -42,6 +43,7 @@ User: {{$livro->users->name}}
 @else
 Não tem permissoes para editar e eleminar
 @endif
+
 @endif
 @endsection
 
