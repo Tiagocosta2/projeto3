@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Editora;
 
 class EditorasController extends Controller
@@ -27,10 +28,16 @@ class EditorasController extends Controller
     	]);
     }
     public function create() {
-        return view('editoras.create');
+        if (Gate::allows('admin')) {
+           return view('editoras.create'); 
+        }
+        else{
+            return redirect()->route('editoras.index')->with('mensagem', 'Erro não tem permissoes para entrar nesta area');
+        }
     }
     public function store(Request $request){
-        $novoEditora = $request->validate([
+        if (Gate::allows('admin')) {
+            $novoEditora = $request->validate([
             'nome'=>['required', 'min:1', 'max:50'],
             'morada'=> ['nullable','min:3', 'max:50'],
             'observacoes'=> ['nullable','min:3', 'max:200'],
@@ -39,16 +46,27 @@ class EditorasController extends Controller
         return redirect()->route('editoras.show', [
             'id'=>$editora->id_editora
         ]);
+        }
+        else{
+            return redirect()->route('editoras.index')->with('mensagem', 'Erro não tem permissoes para entrar nesta area');
+        } 
     }
     public function edit(Request $request) {
-        $idEditora=$request->id;
+        if (Gate::allows('admin')) {
+            $idEditora=$request->id;
         $idEditora = Editora::where('id_editora', $idEditora)->first();
         return view('editoras.edit', [
             'editora'=>$idEditora
         ]);
+        }
+        else{
+            return redirect()->route('editoras.index')->with('mensagem', 'Erro não tem permissoes para entrar nesta area');
+        }
+        
     }
     public function update (Request $request) {
-        $idEditora=$request->id;
+        if (Gate::allows('admin')) {
+             $idEditora=$request->id;
         $editora = Editora::findOrFail($idEditora);
             $atualizarEditora = $request->validate ([
             'nome'=>['required', 'min:1', 'max:50'],
@@ -59,9 +77,14 @@ class EditorasController extends Controller
         return redirect()->route('editoras.show', [
             'id'=>$editora->id_editora
         ]); 
+        }
+        else{
+            return redirect()->route('editoras.index')->with('mensagem', 'Erro não tem permissoes para entrar nesta area');
+        }
     }
     public function delete(Request $request) {
-        $idEditora=$request->id;
+        if (Gate::allows('admin')) {
+             $idEditora=$request->id;
         $editora=Editora::where('id_editora', $idEditora )->first();
         if(is_null($editora)) {
             return redirect()->route('editoras.index')
@@ -70,12 +93,23 @@ class EditorasController extends Controller
         else {
             return view('editoras.delete', ['editora'=>$editora]);
         }
+        }
+        else{
+            return redirect()->route('editoras.index')->with('mensagem', 'Erro não tem permissoes para entrar nesta area');
+        }
+       
     }
     public function destroy(Request $request) {
-        $idEditora=$request->id;
-        $editora =Editora::findOrFail($idEditora);
-        $editora->delete();
-        return redirect()->route('editoras.index')
-        ->with('mensagem', 'Editora Eliminada');
+        if (Gate::allows('admin')) {
+            $idEditora=$request->id;
+            $editora =Editora::findOrFail($idEditora);
+            $editora->delete();
+            return redirect()->route('editoras.index')
+            ->with('mensagem', 'Editora Eliminada');
+        }
+        else{
+            return redirect()->route('editoras.index')->with('mensagem', 'Erro não tem permissoes para entrar nesta area');
+        }
+        
     }
 }

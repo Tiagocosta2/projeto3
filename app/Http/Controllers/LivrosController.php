@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Auth;
 use App\Models\Livro;
 use App\Models\Genero;
@@ -38,18 +39,22 @@ class LivrosController extends Controller
     	]);
     }
     public function create() {
-        $generos = Genero::all();
-        $autores = Autor::all();
-        $editoras = Editora::all();
-        return view('livros.create',[
+        if (Gate::allows('admin')) {
+            $generos = Genero::all();
+            $autores = Autor::all();
+            $editoras = Editora::all();
+            return view('livros.create',[
             'generos'=>$generos,
             'autores'=>$autores,
             'editoras'=>$editoras
         ]);
-
+        }
+        else{
+             return redirect()->route('livros.index')->with('mensagem', 'Erro não tem permissoes para entrar nesta area');
+        }
     }
     public function store(Request $request) {
-        
+      if (Gate::allows('admin')) {
         //$novoLivro = $request->all();
         //dd($novoLivro);
         $novoLivro = $request->validate ([
@@ -76,7 +81,10 @@ class LivrosController extends Controller
         return redirect()->route('livros.show', [
                 'id'=>$livro->id_livro
          ]);
-
+      }
+      else {
+        return redirect()->route('livros.index')->with('mensagem', 'Erro não tem permissoes para entrar nesta area');
+      }  
     }
     public function edit(Request $request) {
         $idLivro=$request->id;
@@ -84,7 +92,6 @@ class LivrosController extends Controller
         $autores = Autor::all();
         $editoras = Editora::all();
         $idLivro = Livro::where('id_livro', $idLivro)->with(['autores','editoras'])->first();
-
         $autoresLivro=[];
         foreach ($idLivro->autores as $autor) {
             $autoresLivro[] = $autor->id_autor;
@@ -96,15 +103,15 @@ class LivrosController extends Controller
         }
         
         if (isset($idLivro->id_user)) {
-            if(Auth::user()->id==$idLivro->id_user){
+            if (Gate::allows('atualizar-livro', $idLivro)|| Gate::allows('admin')) {
                  return view('livros.edit', [
-            'livro'=>$idLivro,
+                 'livro'=>$idLivro,
                  'generos'=>$generos,
                  'autores'=>$autores,
                  'editoras'=>$editoras,
                  'autoresLivro'=>$autoresLivro,
-                'editorasLivro'=>$editorasLivro
-             ]);
+                 'editorasLivro'=>$editorasLivro
+                ]);
             }
             else{
             return redirect()->route('livros.index')->with('mensagem', 'Erro');
@@ -122,6 +129,7 @@ class LivrosController extends Controller
         
     }
     public function update (Request $request) {
+        if(Gate::allows('admin')){
         $idLivro=$request->id;
         $livro = Livro::findOrFail($idLivro);
             $atualizarLivro = $request->validate ([
@@ -142,7 +150,11 @@ class LivrosController extends Controller
             $livro->editoras()->sync($editoras);
         return redirect()->route('livros.show', [
             'id'=>$livro->id_livro
-        ]); 
+        ]);
+       }
+       else {
+        return redirect()->route('livros.index')->with('mensagem', 'Erro não tem permissoes para entrar nesta area');
+       }  
     }
     public function delete(Request $request) {
         $idLivro=$request->id;
@@ -156,6 +168,7 @@ class LivrosController extends Controller
         }
     }
     public function destroy(Request $request) {
+      if(Gate::allows('admin')) {
         $idLivro=$request->id;
         $livro =Livro::findOrFail($idLivro);
 
@@ -166,6 +179,10 @@ class LivrosController extends Controller
         $livro->delete();
         return redirect()->route('livros.index')
         ->with('mensagem', 'Livro Eliminado');
+      }
+      else {
+        return redirect()->route('livros.index')->with('mensagem', 'Erro não tem permissoes para entrar nesta area');
+      }  
     }
     public function sendlikes(Request $request) {
         $idLivro=$request->id;

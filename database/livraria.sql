@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14-Dez-2020 às 17:50
+-- Tempo de geração: 17-Dez-2020 às 15:21
 -- Versão do servidor: 10.4.14-MariaDB
 -- versão do PHP: 7.3.23
 
@@ -82,9 +82,9 @@ CREATE TABLE `autores_livros` (
 INSERT INTO `autores_livros` (`id_al`, `id_autor`, `id_livro`, `updated_at`, `created_at`) VALUES
 (1, 1, 1, NULL, NULL),
 (5, 3, 2, '2020-12-10 15:16:10', '2020-12-10 15:16:10'),
-(6, 3, 25, '2020-12-10 15:21:10', '2020-12-10 15:21:10'),
 (9, 2, 28, '2020-12-11 15:17:38', '2020-12-11 15:17:38'),
-(10, 2, 29, '2020-12-11 15:41:52', '2020-12-11 15:41:52');
+(10, 2, 29, '2020-12-11 15:41:52', '2020-12-11 15:41:52'),
+(11, 2, 25, '2020-12-17 14:12:24', '2020-12-17 14:12:24');
 
 -- --------------------------------------------------------
 
@@ -184,6 +184,32 @@ CREATE TABLE `likes` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `likes`
+--
+
+INSERT INTO `likes` (`id_like`, `id_livro`, `id_user`, `likes`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 2, 2, NULL, '2020-12-14 16:50:50', '2020-12-14 16:50:50', NULL),
+(2, 2, 2, NULL, '2020-12-14 16:50:52', '2020-12-14 16:50:52', NULL),
+(3, 2, 2, NULL, '2020-12-14 16:50:56', '2020-12-14 16:50:56', NULL),
+(4, 2, 2, NULL, '2020-12-14 16:51:01', '2020-12-14 16:51:01', NULL),
+(5, 2, 2, NULL, '2020-12-14 16:51:09', '2020-12-14 16:51:09', NULL),
+(6, 2, 2, NULL, '2020-12-14 16:51:12', '2020-12-14 16:51:12', NULL),
+(7, 2, 2, NULL, '2020-12-14 16:51:13', '2020-12-14 16:51:13', NULL),
+(8, 2, 2, NULL, '2020-12-14 16:51:13', '2020-12-14 16:51:13', NULL),
+(9, 2, 2, NULL, '2020-12-14 16:51:20', '2020-12-14 16:51:20', NULL),
+(10, 2, 2, NULL, '2020-12-14 16:53:19', '2020-12-14 16:53:19', NULL),
+(11, 2, 2, NULL, '2020-12-14 17:16:44', '2020-12-14 17:16:44', NULL),
+(12, 2, 2, NULL, '2020-12-14 17:16:46', '2020-12-14 17:16:46', NULL),
+(13, 2, 2, NULL, '2020-12-14 17:16:47', '2020-12-14 17:16:47', NULL),
+(14, 2, 2, NULL, '2020-12-14 17:17:21', '2020-12-14 17:17:21', NULL),
+(15, 2, 2, NULL, '2020-12-14 17:17:23', '2020-12-14 17:17:23', NULL),
+(16, 2, 2, NULL, '2020-12-14 17:17:23', '2020-12-14 17:17:23', NULL),
+(22, 2, 2, NULL, '2020-12-14 17:24:58', '2020-12-14 17:24:58', NULL),
+(23, 2, 2, NULL, '2020-12-14 17:25:57', '2020-12-14 17:25:57', NULL),
+(24, 2, 2, NULL, '2020-12-14 17:25:59', '2020-12-14 17:25:59', NULL),
+(25, 25, 1, NULL, '2020-12-17 14:12:07', '2020-12-17 14:12:07', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -245,6 +271,7 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo_user` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'normal' COMMENT 'admin ou normal',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -254,9 +281,9 @@ CREATE TABLE `users` (
 -- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'tiago', 'tiagofilipegoncalves.tc@gmail.com', NULL, '$2y$10$8lVaq6k/tuUiKdnuj1G4DeiZNKp0RqRzahc/j3rWUg1cio6sd4Mdu', NULL, '2020-12-10 13:56:50', '2020-12-10 13:56:50'),
-(2, 'tiago2', 'tiagofilipegoncalves@hotmail.com', NULL, '$2y$10$NdX9SPQo89ZRQpoKOPQkR.nG7Y1kPYj7uev5Lo7DLoEeQ15wvwNAG', NULL, '2020-12-11 15:32:42', '2020-12-11 15:32:42');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `tipo_user`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'tiago', 'tiagofilipegoncalves.tc@gmail.com', NULL, '$2y$10$8lVaq6k/tuUiKdnuj1G4DeiZNKp0RqRzahc/j3rWUg1cio6sd4Mdu', 'normal', NULL, '2020-12-10 13:56:50', '2020-12-10 13:56:50'),
+(2, 'tiago2', 'tiagofilipegoncalves@hotmail.com', NULL, '$2y$10$NdX9SPQo89ZRQpoKOPQkR.nG7Y1kPYj7uev5Lo7DLoEeQ15wvwNAG', 'normal', NULL, '2020-12-11 15:32:42', '2020-12-11 15:32:42');
 
 --
 -- Índices para tabelas despejadas
@@ -324,7 +351,7 @@ ALTER TABLE `autores`
 -- AUTO_INCREMENT de tabela `autores_livros`
 --
 ALTER TABLE `autores_livros`
-  MODIFY `id_al` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_al` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `editoras`
@@ -342,7 +369,7 @@ ALTER TABLE `generos`
 -- AUTO_INCREMENT de tabela `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de tabela `livros`
