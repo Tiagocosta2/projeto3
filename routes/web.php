@@ -26,6 +26,8 @@ Route::get('/editoras', 'App\Http\Controllers\EditorasController@index')
 	->name('editoras.index');	
 Route::get('/generos', 'App\Http\Controllers\GenerosController@index')
 	->name('generos.index');
+Route::get('/users', 'App\Http\Controllers\UsersController@index')
+	->name('users.index');	
 
 //Show
 Route::get('/livros/{id}/show', 'App\Http\Controllers\LivrosController@show')

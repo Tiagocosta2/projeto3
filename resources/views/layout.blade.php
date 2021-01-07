@@ -27,6 +27,7 @@
       <a class="nav-item nav-link" href="{{route('editoras.index')}}">Editoras</a>
       <a class="nav-item nav-link" href="{{route('autores.index')}}">Autores</a>
       <a class="nav-item nav-link" href="{{route('mostrar.form')}}">Formulario</a>
+      <a class="nav-item nav-link" href="{{route('users.index')}}">Users</a>
       <a class="dropdown-item" href="{{ route('logout') }}"
          onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">

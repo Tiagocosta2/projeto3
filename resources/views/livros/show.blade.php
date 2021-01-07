@@ -28,9 +28,18 @@ Edição:<br>
 @endforeach
 
 Imagem Capa:<br>
+@if(isset($livro->imagem_capa))
 <img src="{{asset('imagens/livros/'.$livro->imagem_capa)}}">
+@endif
  <br>
 <br>
+Excertos:
+@if(isset($livro->excerto))
+<a href="" target="_blank">PDF</a>
+@endif
+<br>
+<br>
+
 
 
 @if(!is_null($livro->users))

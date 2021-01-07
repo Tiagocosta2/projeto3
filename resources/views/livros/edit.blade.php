@@ -37,6 +37,11 @@ Imagem capa: <input type="file" name="imagem_capa" value="{{$livro->imagem_capa}
 Deverá indicar uma imagem de capa correta<br>
 @endif
 
+Excerto: <input type="file" name="excerto" value="{{$livro->excerto}}"><br>
+@if ( $errors->has('excerto') )
+Deverá indicar um excerto correto<br>
+@endif
+
 Género:
 <select name="id_genero">
 	@foreach($generos as $genero)

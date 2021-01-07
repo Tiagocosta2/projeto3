@@ -41,8 +41,18 @@ class AutoresController extends Controller
             'nome'=>['required', 'min:1', 'max:50'],
             'nacionalidade'=> ['nullable','min:3', 'max:50'],
             'data_nascimento'=>['nullable', 'date'],
-            'fotografia'=>['nullable'],
+            'fotografia'=>['image','nullable','max:2000'],
         ]);
+
+         if($request->hasFile('fotografia')){
+            $nomeImagem=$request->file('fotografia')->getClientOriginalName();
+
+            $nomeImagem=time().'_'.$nomeImagem;
+            $guardarImagem=$request->file('fotografia')->storeAs('imagens/autores',$nomeImagem);
+
+            $novoAutor['fotografia']=$nomeImagem;
+        }
+
         $autor =Autor::create($novoAutor);
         return redirect()->route('autores.show', [
                 'id'=>$autor->id_autor
@@ -68,13 +78,28 @@ class AutoresController extends Controller
     public function update (Request $request) {
         if(Gate::allows('admin')){
            $idAutor=$request->id;
+            $imagemAntiga=$autor->fotografia;
         $autor = Autor::findOrFail($idAutor);
             $atualizarAutor = $request->validate ([
             'nome'=>['required', 'min:1', 'max:50'],
             'nacionalidade'=> ['nullable','min:3', 'max:50'],
             'data_nascimento'=>['nullable', 'date'],
-            'fotografia'=>['nullable'],
+            'fotografia'=>['image','nullable','max:2000'],
             ]); 
+
+            if($request->hasFile('fotografia')){
+            $nomeImagem=$request->file('fotografia')->getClientOriginalName();
+
+            $nomeImagem=time().'_'.$nomeImagem;
+            $guardarImagem=$request->file('fotografia')->storeAs('imagens/autores',$nomeImagem);
+
+            if(!is_null($imagemAntiga)){
+                    Storage::Delete('imagens/livros/'.$imagemAntiga);
+                }
+
+            $atualizarAutor['fotografia']=$nomeImagem;
+
+
         $autor->update($atualizarAutor);   
         return redirect()->route('autores.show', [
             'id'=>$autor->id_autor

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Auth;
 use App\Models\Livro;
 use App\Models\Genero;
@@ -68,6 +69,7 @@ class LivrosController extends Controller
             'imagem_capa'=> ['image','nullable','max:2000'],
             'id_genero' => ['numeric', 'nullable'],
             'sinopse'=>['nullable', 'min:3', 'max:255'],
+            'excerto'=>['file','mimes:pdf','nullable','max:100'],
         ]);
         if($request->hasFile('imagem_capa')){
             $nomeImagem=$request->file('imagem_capa')->getClientOriginalName();
@@ -77,6 +79,16 @@ class LivrosController extends Controller
 
             $novoLivro['imagem_capa']=$nomeImagem;
         }
+
+            if($request->hasFile('excerto')){
+             $nomeExcerto=$request->file('excerto')->getClientOriginalName();
+
+             $nomeExcerto=time().'_'.$nomeExcerto;
+             $guardarExcerto=$request->file('excerto')->storeAs('imagens/livros',$nomeExcerto);
+
+             $novoLivro['excerto']=$nomeExcerto;
+            }
+
         if(Auth::check()){
             $userAtual=Auth::user()->id;
             $novoLivro['id_user']=$userAtual;
@@ -140,6 +152,8 @@ class LivrosController extends Controller
         if(Gate::allows('admin')){
         $idLivro=$request->id;
         $livro = Livro::findOrFail($idLivro);
+        $imagemAntiga=$livro->imagem_capa;
+        $excertoAntigo=$livro->excerto;
             $atualizarLivro = $request->validate ([
             'titulo'=>['required', 'min:3', 'max:100'],
             'idioma'=>['nullable', 'min:3', 'max:20'],
@@ -150,6 +164,7 @@ class LivrosController extends Controller
             'imagem_capa'=> ['image','nullable','max:2000'],
             'id_genero' => ['numeric', 'nullable'],
             'sinopse'=>['nullable', 'min:3', 'max:255'],
+            'excerto'=>['file','mimes:pdf','nullable','max:100'],
             ]);
             if($request->hasFile('imagem_capa')){
             $nomeImagem=$request->file('imagem_capa')->getClientOriginalName();
@@ -157,8 +172,25 @@ class LivrosController extends Controller
             $nomeImagem=time().'_'.$nomeImagem;
             $guardarImagem=$request->file('imagem_capa')->storeAs('imagens/livros',$nomeImagem);
 
+                if(!is_null($imagemAntiga)){
+                    Storage::Delete('imagens/livros/'.$imagemAntiga);
+                }
             $atualizarLivro['imagem_capa']=$nomeImagem;
         } 
+
+            if($request->hasFile('excerto')){
+             $nomeExcerto=$request->file('excerto')->getClientOriginalName();
+
+             $nomeExcerto=time().'_'.$nomeExcerto;
+             $guardarExcerto=$request->file('excerto')->storeAs('imagens/livros',$nomeExcerto);
+
+                if(!is_null($excertoAntigo)){
+                    Storage::Delete('imagens/livros/'.$excertoAntigo);
+                }
+
+             $atualizarLivro['excerto']=$nomeExcerto;
+            }
+
             $editoras=$request->id_editora;
             $autores=$request->id_autor;
             $livro->update($atualizarLivro);  

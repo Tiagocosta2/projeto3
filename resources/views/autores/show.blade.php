@@ -19,6 +19,14 @@ Titulo:
 {{$livro->titulo}} <br>
 @endforeach
 <br>
+<br>
+Fotografia:
+@if(isset($autor->fotografia))
+<a href="" target="_blank">Fotografia</a>
+@endif
+<br>
+<br>
+
 @if(auth()->check())
 <button type="button" class="btn btn-outline-primary"><a href="{{route('autores.create')}}">Adicionar autores</a> </button><br>
 <button type="button" class="btn btn-outline-primary"><a href="{{route('autores.edit', ['id'=>$autor->id_autor])}}">Editar</a></button><br>
