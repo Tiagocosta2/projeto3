@@ -1,4 +1,4 @@
-<form action="{{route('livros.store')}}" method="post">
+<form action="{{route('livros.store')}}" enctype="multipart/form-data" method="post">
 @csrf
 
 Titulo: <input type="text" name="titulo" value="{{old('titulo')}}"><br>
@@ -31,7 +31,7 @@ Observações: <textarea name="observacoes"></textarea><br>
 Deverá indicar uma observação correta<br>
 @endif
 
-Imagem capa: <input type="text" name="imagem_capa" value="{{old('imagem_capa')}}"><br>
+Imagem capa: <input type="file" name="imagem_capa" value="{{old('imagem_capa')}}"><br>
 @if ( $errors->has('imagem_capa') )
 Deverá indicar uma imagem de capa correta<br>
 @endif

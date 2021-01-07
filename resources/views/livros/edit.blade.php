@@ -1,4 +1,4 @@
-<form action="{{route('livros.update', ['id'=>$livro->id_livro])}}" method="post">
+<form action="{{route('livros.update', ['id'=>$livro->id_livro])}}" enctype="multipart/form-data" method="post">
 @csrf
 @method('patch')
 
@@ -32,7 +32,7 @@ Observações: <textarea name="observacoes">{{$livro->observacoes}}</textarea><b
 Deverá indicar uma observação correta<br>
 @endif
 
-Imagem capa: <input type="text" name="imagem_capa" value="{{$livro->imagem_capa}}"><br>
+Imagem capa: <input type="file" name="imagem_capa" value="{{$livro->imagem_capa}}"><br>
 @if ( $errors->has('imagem_capa') )
 Deverá indicar uma imagem de capa correta<br>
 @endif

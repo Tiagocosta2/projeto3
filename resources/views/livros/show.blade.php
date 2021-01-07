@@ -27,6 +27,12 @@ Edição:<br>
 {{$editora->nome}} <br>
 @endforeach
 
+Imagem Capa:<br>
+<img src="{{asset('imagens/livros/'.$livro->imagem_capa)}}">
+ <br>
+<br>
+
+
 @if(!is_null($livro->users))
 User: {{$livro->users->name}}
 @else
